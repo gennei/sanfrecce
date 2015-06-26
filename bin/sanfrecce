@@ -1,0 +1,45 @@
+#!/usr/bin/env ruby
+# encoding: utf-8
+
+require 'sanfrecce'
+require 'sanfrecce/version'
+require 'thor'
+require 'pp'
+# rubocop: disable MethodLength
+module Sanfrecce
+  # = Sanfrecce CLI
+  class CLI < Thor
+    class_option :help, type: :boolean, aliases: '-h', desc: 'help message.'
+    class_option :version, type: :boolean, desc: 'version'
+    class_option :debug, type: :boolean, aliases: '-d', desc: 'debug mode'
+
+    desc 'version', 'version'
+    def version
+      p Sanfrecce::VERSION
+    end
+
+    desc 'players', 'player list'
+    def players
+      pp Sanfrecce.players
+    end
+
+    desc 'number', 'player number'
+    def number(no=10)
+      p Sanfrecce.players[no]
+    end
+
+    private
+
+    def setting_debug_mode
+      $DEBUG = options[:debug]
+    end
+
+    def output_error_if_debug_mode(e)
+      return unless options[:debug]
+      STDERR.puts(e.backtrace)
+    end
+  end
+end
+
+Sanfrecce::CLI.start(ARGV)
+# rubocop: enable MethodLength
