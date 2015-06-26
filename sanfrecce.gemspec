@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %q{ command line tool for Sanfrecce Hiroshima Data}
   spec.description   = %q{ command line get infomation from Sanfrecce Hiroshima HP}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.homepage      = "https://github.com/gennei/sanfrecce"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
