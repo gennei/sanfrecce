@@ -5,7 +5,7 @@ require 'sanfrecce'
 require 'sanfrecce/version'
 require 'thor'
 require 'pp'
-# rubocop: disable MethodLength
+
 module Sanfrecce
   # = Sanfrecce CLI
   class CLI < Thor
@@ -24,22 +24,10 @@ module Sanfrecce
     end
 
     desc 'number', 'player number'
-    def number(no=10)
+    def number(no = 11)
       p Sanfrecce.players[no]
-    end
-
-    private
-
-    def setting_debug_mode
-      $DEBUG = options[:debug]
-    end
-
-    def output_error_if_debug_mode(e)
-      return unless options[:debug]
-      STDERR.puts(e.backtrace)
     end
   end
 end
 
 Sanfrecce::CLI.start(ARGV)
-# rubocop: enable MethodLength

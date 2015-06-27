@@ -1,13 +1,13 @@
-#require "sanfrecce/version"
 require 'open-uri'
 require 'nokogiri'
-require 'pp'
+
+# sanfrecce
 module Sanfrecce
   module_function
 
   def players
     html = fetch_players
-    players = Hash.new
+    players = {}
     html.css('a').each do |item|
       no = item.css('span.uniform_number').text
       name = item.css('span.player_name > strong').text
