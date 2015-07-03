@@ -27,6 +27,17 @@ module Sanfrecce
     def number(no = 11)
       p Sanfrecce.players[no]
     end
+
+    desc 'games', 'all games'
+    def games
+      hoge = Sanfrecce.all_games
+      pp hoge
+    end
+
+    desc 'game', 'game result'
+    def game(no = 1)
+      pp Sanfrecce.first_stage['1st-' + no]
+    end
   end
 end
 
