@@ -10,7 +10,7 @@ module Sanfrecce
     players = {}
     html.css('a').each do |item|
       no = item.css('span.uniform_number').text
-      name = item.css('span.player_name > strong').text
+      name = html2text(item, 'span.player_name > strong')
       players[no] = name
     end
     players
@@ -19,7 +19,7 @@ module Sanfrecce
   def first_stage
     games = {}
     fetch_games.css('div:nth-child(3) > table > tr').each do |item|
-      games['1st-' + item.css('td:nth-child(1)').text] = game_detail(item)
+      games['1st-' + html2text(item, 'td:nth-child(1)')] = game_detail(item)
     end
     games.delete_if { |key, _value| key == '1st-' }
   end
@@ -27,13 +27,37 @@ module Sanfrecce
   def second_stage
     games = {}
     fetch_games.css('div:nth-child(4) > table > tr').each do |item|
-      games['2nd-' + item.css('td:nth-child(1)').text] = game_detail(item)
+      games['2nd-' + html2text(item, 'td:nth-child(1)')] = game_detail(item)
     end
     games.delete_if { |key, _value| key == '2nd-' }
   end
 
   def all_games
     first_stage.merge(second_stage)
+  end
+
+  def ranking
+    rank = {}
+    fetch_ranking.css('div:nth-child(5) > table > tr').each do |item|
+      rank[html2text(item, 'td:nth-child(1)')] = rank_detail(item)
+    end
+    rank
+  end
+
+  def first_ranking
+    rank = {}
+    fetch_ranking.css('div:nth-child(3) > table > tr').each do |item|
+      rank[html2text(item, 'td:nth-child(1)')] = rank_detail(item)
+    end
+    rank
+  end
+
+  def second_ranking
+    rank = {}
+    fetch_ranking.css('div:nth-child(4) > table > tr').each do |item|
+      rank[html2text(item, 'td:nth-child(1)')] = rank_detail(item)
+    end
+    rank
   end
 
   private
@@ -53,13 +77,38 @@ module Sanfrecce
     games_html
   end
 
+  def self.fetch_ranking
+    url = 'http://www.sanfrecce.co.jp/info/ranking/'
+    html = Nokogiri::HTML(open(url), nil, 'CP932')
+    games_html = html.css('#contents > div.stadium_bg > div > div.content_area.clearfix')
+    games_html
+  end
+
   def self.game_detail(item)
     {
-      'Day': item.css('td:nth-child(2)').text,
-      'Kickoff': item.css('td:nth-child(3)').text,
-      'team': item.css('td:nth-child(4)').text,
-      'result': item.css('td:nth-child(5)').text,
-      'stadium': item.css('td:nth-child(6)').text
+      'Day': html2text(item, 'td:nth-child(2)'),
+      'Kickoff': html2text(item, 'td:nth-child(3)'),
+      'team': html2text(item, 'td:nth-child(4)'),
+      'result': html2text(item, 'td:nth-child(5)'),
+      'stadium': html2text(item, 'td:nth-child(6)')
     }
+  end
+
+  def self.rank_detail(item)
+    {
+      'team': html2text(item, 'td:nth-child(2)'),
+      'points': html2text(item, 'td:nth-child(3)'),
+      'played': html2text(item, 'td:nth-child(4)'),
+      'win': html2text(item, 'td:nth-child(5)'),
+      'draw': html2text(item, 'td:nth-child(6)'),
+      'lose': html2text(item, 'td:nth-child(7)'),
+      'goal': html2text(item, 'td:nth-child(8)'),
+      'lost': html2text(item, 'td:nth-child(9)'),
+      'diff': html2text(item, 'td:nth-child(10)')
+    }
+  end
+
+  def self.html2text(item, tag)
+    item.css(tag).text
   end
 end

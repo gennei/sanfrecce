@@ -30,8 +30,22 @@ module Sanfrecce
 
     desc 'games', 'all games'
     def games
-      hoge = Sanfrecce.all_games
-      pp hoge
+      pp Sanfrecce.all_games
+    end
+
+    desc 'first_ranking', '1stage ranking'
+    def first_ranking
+      pp Sanfrecce.first_ranking
+    end
+
+    desc 'second_ranking', '2stage ranking'
+    def second_ranking
+      pp Sanfrecce.second_ranking
+    end
+
+    desc 'ranking', 'ranking'
+    def ranking
+      pp Sanfrecce.ranking
     end
 
     desc 'game', 'game result'
