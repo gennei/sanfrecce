@@ -41,7 +41,7 @@ module Sanfrecce
     fetch_ranking.css('div:nth-child(5) > table > tr').each do |item|
       rank[html2text(item, 'td:nth-child(1)')] = rank_detail(item)
     end
-    rank
+    rank.delete_if { |key, _value| key == '' }
   end
 
   def first_ranking
@@ -49,7 +49,7 @@ module Sanfrecce
     fetch_ranking.css('div:nth-child(3) > table > tr').each do |item|
       rank[html2text(item, 'td:nth-child(1)')] = rank_detail(item)
     end
-    rank
+    rank.delete_if { |key, _value| key == '' }
   end
 
   def second_ranking
@@ -57,7 +57,7 @@ module Sanfrecce
     fetch_ranking.css('div:nth-child(4) > table > tr').each do |item|
       rank[html2text(item, 'td:nth-child(1)')] = rank_detail(item)
     end
-    rank
+    rank.delete_if { |key, _value| key == '' }
   end
 
   private
