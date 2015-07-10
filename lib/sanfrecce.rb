@@ -18,7 +18,7 @@ module Sanfrecce
 
   def first_stage
     games = {}
-    fetch_games.css('div:nth-child(3) > table > tr').each do |item|
+    fetch_games.css('div:nth-child(4) > table > tr').each do |item|
       games['1st-' + html2text(item, 'td:nth-child(1)')] = game_detail(item)
     end
     games.delete_if { |key, _value| key == '1st-' }
@@ -26,7 +26,7 @@ module Sanfrecce
 
   def second_stage
     games = {}
-    fetch_games.css('div:nth-child(4) > table > tr').each do |item|
+    fetch_games.css('div:nth-child(3) > table > tr').each do |item|
       games['2nd-' + html2text(item, 'td:nth-child(1)')] = game_detail(item)
     end
     games.delete_if { |key, _value| key == '2nd-' }

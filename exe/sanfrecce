@@ -33,6 +33,11 @@ module Sanfrecce
       pp Sanfrecce.all_games
     end
 
+    desc 'game', 'game result'
+    def game(no = 1)
+      pp Sanfrecce.first_stage['1st-' + no]
+    end
+
     desc 'first_ranking', '1stage ranking'
     def first_ranking
       pp Sanfrecce.first_ranking
@@ -46,11 +51,6 @@ module Sanfrecce
     desc 'ranking', 'ranking'
     def ranking
       pp Sanfrecce.ranking
-    end
-
-    desc 'game', 'game result'
-    def game(no = 1)
-      pp Sanfrecce.first_stage['1st-' + no]
     end
   end
 end
