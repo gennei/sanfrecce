@@ -47,7 +47,7 @@ describe Sanfrecce do
 
     it 'second_ranking' do
       actual = Sanfrecce.second_ranking
-      expect(actual.empty?).to eq(true)
+      expect(actual.empty?).to eq(false)
     end
   end
 end
